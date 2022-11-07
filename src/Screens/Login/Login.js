@@ -1,25 +1,44 @@
 //import liraries
-import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { ImageBackground, Text, TouchableOpacity, View } from 'react-native';
+import TextInputWithLabel from '../../Components/TextInputWithLabel';
+import imagePath from '../../constants/imagePath';
+import { moderateScaleVertical } from '../../styles/responsiveSize';
+import styles from './styles';
 
-// create a component
-const Login = () => {
+const Login = ({ navigation }) => {
+    const [isVisible, setVisible] = useState(true)
     return (
         <View style={styles.container}>
-            <Text>Login</Text>
+            <ImageBackground
+                style={styles.ImageStyle}
+                source={{ uri: 'https://img.freepik.com/free-photo/newborn-little-cute-likeable-baby-boy-laying-little-cute-yellow-animal-shaped-hat-inside-brown-basket-along-with-green-leafs-wooden-brown-room_179666-129.jpg?w=360' }}
+            >
+                <Text style={styles.loginTextStyle}>LOGIN</Text>
+            </ImageBackground>
+            <View style={styles.mainStyle}>
+
+                <TextInputWithLabel
+                    label="Email Address"
+                    placeHolder="Enter Your Email"
+                    inputStyle={{ marginBottom: moderateScaleVertical(28) }}
+                    keyboardType='email-address'
+
+                />
+                <TextInputWithLabel
+                    label="Email Password"
+                    placeHolder="Enter Your Password"
+                    secureTextEntry={isVisible}
+                    rightIcon={isVisible ? imagePath.hideEye : imagePath.showEye}
+                    onPressRight={() => setVisible(!isVisible)}
+
+                />
+                <TouchableOpacity style={{ alignSelf: "flex-end", marginTop: moderateScaleVertical(24), }}>
+                    <Text>Forget Password</Text>
+                </TouchableOpacity>
+            </View>
+
         </View>
     );
 };
-
-// define your styles
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#2c3e50',
-    },
-});
-
-//make this component available to the app
 export default Login;
